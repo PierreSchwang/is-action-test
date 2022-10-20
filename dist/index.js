@@ -15758,7 +15758,7 @@ const requiredEnvironmentVariables = [
     "ACT_GITHUB_TOKEN"
 ]
 const ENTRY_REGEXP = /(.*) (@\w+) (\(#\d{4}\))/
-const applyTemplate = async (template, tag, changelog) => {
+const applyTemplate = (template, tag, changelog) => {
     return template.replaceAll('{TAG}', tag)
         .replaceAll('{CHANGELOG}', changelog)
 }
