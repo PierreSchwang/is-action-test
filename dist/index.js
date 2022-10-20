@@ -15783,7 +15783,9 @@ const applyTemplate = async (template, tag, changelog) => {
     })).data.body
     let discordChangelog = ''
     for (let line of changelog.split("\r\n")) {
-        line = line.trim()
+        if (!(line = line.trim())) {
+            continue
+        }
         if (line.startsWith('##')) {
             if (discordChangelog !== '') {
                 discordChangelog += '\n\n'
