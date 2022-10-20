@@ -1,0 +1,6 @@
+name: 'Discord Release Notifier'
+description: 'Sends a notification to a discord channel on a published release'
+
+runs:
+  using: node16
+  main: 'dist/index.js'
