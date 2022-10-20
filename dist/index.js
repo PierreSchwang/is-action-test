@@ -15755,7 +15755,7 @@ const axios = __nccwpck_require__(688);
 const requiredEnvironmentVariables = [
     "DISCORD_WEBHOOK",
     "MESSAGE_TEMPLATE",
-    "GITHUB_TOKEN"
+    "ACT_GITHUB_TOKEN"
 ]
 const ENTRY_REGEXP = /(.*) (@\w+) (\(#\d{4}\))/
 const applyTemplate = async (template, tag, changelog) => {
@@ -15773,8 +15773,11 @@ const applyTemplate = async (template, tag, changelog) => {
     })
 
     const tag = github.context.payload.release.tag_name
-    const octokit = github.getOctokit(process.env['GITHUB_TOKEN'])
+    const octokit = github.getOctokit(process.env['ACT_GITHUB_TOKEN'])
     const changelog = (await octokit.request("GET /repos/{owner}/{repo}/releases/tags/{tag}", {
+        headers: {
+          authorization: `token ${process.env['ACT_GITHUB_TOKEN']}`
+        },
         'owner': github.context.payload.repository.owner,
         'repo': github.context.payload.repository.name,
         'tag': tag
