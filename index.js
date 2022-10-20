@@ -5,7 +5,7 @@ const axios = require("axios");
 const requiredEnvironmentVariables = [
     "DISCORD_WEBHOOK",
     "MESSAGE_TEMPLATE",
-    "GITHUB_TOKEN"
+    "ACT_GITHUB_TOKEN"
 ]
 const ENTRY_REGEXP = /(.*) (@\w+) (\(#\d{4}\))/
 const applyTemplate = async (template, tag, changelog) => {
