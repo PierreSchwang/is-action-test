@@ -15773,16 +15773,14 @@ const applyTemplate = async (template, tag, changelog) => {
     })
 
     const tag = github.context.payload.release.tag_name
-    const octokit = github.getOctokit(process.env['ACT_GITHUB_TOKEN'])
-    const changelog = (await octokit.request("GET /repos/{owner}/{repo}/releases/tags/{tag}", {
+    core.info(`Preparing release message for ${tag}`)
+    const url = `https://api.github.com/repos/${github.context.payload.repository.owner}/${github.context.payload.repository.name}/releases/tags/${tag}`
+    core.info(`url: ${url}`)
+    const changelog = (await axios.get(url, {
         headers: {
-          authorization: `token ${process.env['ACT_GITHUB_TOKEN']}`
-        },
-        'owner': github.context.payload.repository.owner,
-        'repo': github.context.payload.repository.name,
-        'tag': tag
+            authorization: `token ${process.env['ACT_GITHUB_TOKEN']}`
+        }
     })).data.body
-
     let discordChangelog = ''
     for (let line of changelog.split("\r\n")) {
         line = line.trim()
